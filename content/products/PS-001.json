@@ -1,0 +1,16 @@
+{
+  "id": "PS-001",
+  "name": "BALAYAGE CON BASE RUBIA CLARA",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa\n•  Corte: capas \n•  Puntas rubias Claras\n•  Maya: Lace Front 13x4\n•  Largo: 34\"\n\nRESISTENTE AL CALOR",
+  "price": 400000,
+  "images": [
+    "/images/products/ps-001-1.webp",
+    "/images/products/ps-001-2.webp",
+    "/images/products/ps-001-3.webp",
+    "/images/products/ps-001-4.webp"
+  ],
+  "category": "semirrealistas",
+  "available": true,
+  "featured": true
+}

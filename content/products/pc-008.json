@@ -1,0 +1,16 @@
+{
+  "id": "PC-008",
+  "name": "COBRIZO",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa\n\n•  Corte: en capas\n\n•  Capul:  recto \n\n•  Largo: 30\"\n\nRESISTENTE AL CALOR",
+  "price": 200000,
+  "images": [
+    "/images/products/pc-008-1.webp",
+    "/images/products/pc-008-2.webp",
+    "/images/products/pc-008-3.webp",
+    "/images/products/pc-008-4.webp"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}

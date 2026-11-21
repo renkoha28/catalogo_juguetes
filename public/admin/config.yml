@@ -1,0 +1,234 @@
+backend:
+  name: github
+  repo: renkoha28/catalogo_juguetes
+  branch: main
+  # Descomenta y apunta al Worker de sveltia-cms-auth cuando esté desplegado:
+  # base_url: https://sveltia-cms-auth.TU_SUBDOMINIO.workers.dev
+
+locale: es
+
+media_folder: public/images
+public_folder: /images
+
+# Toda imagen subida se convierte a WebP calidad 90 y máx. 1600px ANTES de
+# commitearse — misma política que scripts/optimize-images.mjs.
+media_libraries:
+  default:
+    config:
+      max_file_size: 15728640
+      # El ancla (&) deja reutilizar esta misma conversión en el campo de fotos
+      # de producto, que necesita su propia config para nombrar los archivos.
+      transformations: &transformaciones_imagen
+        raster_image:
+          format: webp
+          quality: 90
+          width: 1600
+          height: 1600
+        svg:
+          optimize: true
+
+collections:
+  - name: productos
+    label: Productos
+    label_singular: Producto
+    icon: sell
+    folder: content/products
+    format: json
+    extension: json
+    create: true
+    slug: '{{fields.id}}'
+    identifier_field: name
+    summary: '{{fields.name}} — {{fields.id}}'
+    thumbnail: images.0
+    sortable_fields: [name, price, category]
+    editor:
+      preview: false
+    media_folder: /public/images/products
+    public_folder: /images/products
+    fields:
+      - { name: id, label: Referencia, widget: reference, hint: 'Elige la categoría y la referencia se asigna sola con el siguiente número libre. Es lo que la clienta menciona al pedir; en productos ya guardados no se puede cambiar.' }
+      - { name: name, label: Nombre, widget: string }
+      - { name: shortDescription, label: Descripción corta (tarjeta), widget: string }
+      - { name: description, label: Descripción completa, widget: text }
+      - { name: price, label: Precio en pesos colombianos (COP), widget: number, value_type: float, min: 0, default: 0, hint: 'Solo el precio en pesos. Los precios en dólares y demás monedas se calculan solos con la tasa de cambio que está en Información general → Monedas y tasas de cambio.' }
+      - name: images
+        label: Fotos
+        hint: 'Cuatro fotos en este orden: frente, espalda, lado izquierdo y lado derecho. La primera es la que aparece en el catálogo.'
+        widget: list
+        min: 1
+        max: 4
+        # accept genérico a propósito: con una lista de tipos concretos, el
+        # selector de Android suele abrir el explorador de archivos "Recientes";
+        # con image/* ofrece la galería del teléfono, con sus álbumes/carpetas,
+        # que es donde la dueña tiene organizadas las fotos.
+        field:
+          name: image
+          label: Foto
+          widget: image
+          accept: 'image/*'
+          # La config de un campo REEMPLAZA a la global (no se mezcla), por eso
+          # se repiten tamaño máximo y conversión.
+          media_libraries:
+            default:
+              config:
+                max_file_size: 15728640
+                transformations: *transformaciones_imagen
+                # pc-015-3f9a1c2b.webp en vez del número que pone la galería de
+                # Android (1000183013.webp). La página "Subir fotos" usa
+                # pc-015-1, -2…; el final aleatorio aquí evita choques con esas.
+                filename_template: '{{fields.id}}-{{uuid_shorter}}'
+      - name: videos
+        label: Videos
+        required: false
+        hint: 'Opcional: hasta 2 videos cortos (máx. 25 MB cada uno, formato MP4). Aparecen en la página del producto, después de las fotos. Si el video pesa mucho o es de iPhone, mándatelo por WhatsApp y sube el archivo que llega ahí: queda comprimido y en el formato correcto.'
+        widget: list
+        max: 2
+        field:
+          name: video
+          label: Video
+          widget: file
+          # Solo formatos que reproducen todos los navegadores. Los .mov de
+          # iPhone (HEVC) se verían rotos para muchas visitantes.
+          accept: 'video/mp4,video/webm,.mp4,.webm'
+          # Carpeta propia: scripts/optimize-images.mjs y generate-derivatives.mjs
+          # recorren public/images/ asumiendo que todo es imagen.
+          media_folder: /public/videos/products
+          public_folder: /videos/products
+          # Los videos no pasan por la conversión a WebP (solo aplica a imágenes)
+          # y pesan más que una foto: límite propio de 25 MB, que además es el
+          # máximo por archivo que sirve Cloudflare Pages.
+          media_libraries:
+            default:
+              config:
+                max_file_size: 26214400
+      # La categoría ya no se elige aquí: sale del prefijo de la referencia y se
+      # escribe al guardar (public/admin/reference-widget.js, evento preSave).
+      # Sigue declarada como campo oculto para poder ordenar por ella en la
+      # lista de productos y para que no se pierda al editar.
+      - { name: category, label: Categoría, widget: hidden }
+      - { name: available, label: Disponible, widget: boolean, default: true }
+      - { name: featured, label: Destacado (aparece en Inicio), widget: boolean, default: false, hint: 'Solo los primeros 4 productos destacados se muestran en la página de inicio.' }
+
+  - name: categorias
+    label: Categorías
+    label_singular: Categoría
+    icon: category
+    folder: content/categories
+    format: json
+    extension: json
+    create: true
+    slug: '{{fields.id}}'
+    identifier_field: name
+    summary: '{{fields.name}}'
+    sortable_fields: [order, name]
+    editor:
+      preview: false
+    media_folder: /public/images/categories
+    public_folder: /images/categories
+    fields:
+      - { name: id, label: Identificador, widget: string, hint: 'Sin espacios ni acentos, ej. "naturales". No lo cambies si ya hay productos usándolo.' }
+      - { name: name, label: Nombre, widget: string }
+      - { name: prefix, label: Prefijo de la referencia, widget: string, pattern: ['^[A-Z]{1,3}$', 'Entre 1 y 3 letras mayúsculas, ej. PC'], hint: 'Las letras con las que empiezan las referencias de esta categoría (PC → PC-001). Debe ser distinto al de las demás categorías, y no conviene cambiarlo si ya hay productos usándolo.' }
+      - { name: image, label: Imagen, widget: image, required: false }
+      - { name: order, label: Orden, widget: number, value_type: int, default: 99, hint: 'Posición de la pestaña en el catálogo (menor = primero)' }
+
+  - name: general
+    label: Información general
+    icon: settings
+    editor:
+      preview: false
+    files:
+      - name: business
+        label: Negocio
+        file: content/business.json
+        icon: storefront
+        fields:
+          - { name: name, label: Nombre del negocio, widget: string }
+          - { name: slogan, label: Eslogan, widget: string, required: false }
+          - { name: description, label: Descripción, widget: text }
+          - { name: logo, label: Logo, widget: image }
+          - { name: navbarLogo, label: Logo horizontal (barra de navegación), widget: image, required: false, hint: 'Idealmente con fondo transparente. Si se deja vacío, se muestra el logo redondo con el nombre.' }
+          - { name: cover, label: Imagen de portada, widget: image }
+          - { name: phone, label: Teléfono, widget: string, required: false, hint: 'Escríbelo como quieras que se lea, con espacios y con el código de país: "+58 414 0363322". Aparece en el pie de página y en el icono de llamar; el enlace se arma solo quitando los espacios.' }
+          - { name: email, label: Correo, widget: string, required: false, hint: 'Aparece en el pie de página y en el icono de correo.' }
+          - { name: address, label: Dirección, widget: string, required: false }
+          - { name: locationUrl, label: Enlace de Google Maps, widget: string, required: false, hint: 'Es el único sitio donde se escribe la ubicación: de aquí salen tanto el enlace "Ver en Google Maps" del pie de página como el icono del mapa en Inicio y Contacto.' }
+          - name: hours
+            label: Horarios
+            widget: list
+            collapsed: true
+            fields:
+              - { name: days, label: Días, widget: string }
+              - { name: open, label: Horario, widget: string, hint: 'Ejemplo: 10:00 - 19:00, o "Cerrado"' }
+
+      - name: about
+        label: Sobre la fundadora
+        file: content/about.json
+        icon: face
+        fields:
+          - { name: title, label: Título de la página, widget: string }
+          - { name: image, label: Fotografía, widget: image, required: false }
+          - name: story
+            label: Historia (un párrafo por elemento)
+            widget: list
+            field: { name: paragraph, label: Párrafo, widget: text }
+          - name: values
+            label: Valores
+            widget: list
+            collapsed: true
+            fields:
+              - { name: title, label: Título, widget: string }
+              - { name: text, label: Texto, widget: text }
+
+      - name: social
+        label: Redes sociales y contacto
+        file: content/social.json
+        icon: share
+        fields:
+          - { name: instagram, label: Instagram (enlace del perfil), widget: string, required: false }
+          - { name: instagramUser, label: Usuario de Instagram (sin @), widget: string, required: false, hint: 'Se usa para abrir el chat directo (ig.me)' }
+          - { name: facebook, label: Facebook (enlace de la página), widget: string, required: false }
+          - { name: facebookUser, label: Usuario de Facebook, widget: string, required: false, hint: 'Se usa para abrir el chat directo (m.me)' }
+          - { name: tiktok, label: TikTok (enlace del perfil), widget: string, required: false }
+          - { name: whatsapp, label: WhatsApp, widget: string, required: false, hint: 'Código de país + número, sin espacios ni +. Ejemplo: 5215512345678' }
+          # La ubicación, el teléfono y el correo se editan en Negocio: son datos del
+          # negocio, no perfiles. Estaban duplicados aquí y era fácil actualizar uno y
+          # dejar el otro viejo, así que la página mostraba el dato desactualizado.
+          - { name: website, label: Sitio web, widget: string, required: false }
+
+      - name: currencies
+        label: Monedas y tasas de cambio
+        file: content/currencies.json
+        icon: currency_exchange
+        fields:
+          - name: base
+            label: Moneda base (la que escribes en los productos)
+            widget: object
+            collapsed: true
+            hint: 'Es la moneda en la que se escribe el precio de cada producto. Cambiar el código aquí NO convierte los precios ya guardados: seguirían siendo el mismo número, pero en otra moneda.'
+            fields:
+              - { name: code, label: Código, widget: string, hint: 'Ejemplo: COP' }
+              - { name: symbol, label: Símbolo, widget: string, hint: 'Ejemplo: $' }
+              - { name: name, label: Nombre, widget: string, hint: 'Ejemplo: Pesos colombianos' }
+          - name: others
+            label: Otras monedas (se calculan solas)
+            label_singular: Moneda
+            widget: list
+            collapsed: false
+            summary: '{{fields.code}} — 1 {{fields.code}} = {{fields.rate}} COP'
+            hint: 'Cada moneda que agregues aquí aparece como botón en el catálogo. Su precio se calcula dividiendo el precio en pesos entre la tasa de cambio, así que basta con actualizar la tasa cuando el cambio se mueva: todos los productos se actualizan solos.'
+            fields:
+              - { name: code, label: Código, widget: string, hint: 'Tres letras, como lo conoce todo el mundo. Ejemplos: USD, EUR, MXN' }
+              - { name: symbol, label: Símbolo, widget: string, hint: 'Ejemplos: US$, €, MX$' }
+              - { name: name, label: Nombre, widget: string, hint: 'Ejemplo: Dólares estadounidenses' }
+              - { name: rate, label: '¿Cuántos pesos colombianos vale 1 unidad de esta moneda?', widget: number, value_type: float, min: 0.000001, hint: 'Si el dólar está a 4.100 pesos, escribe 4100. Revísalo cada tanto para que los precios no se queden viejos.' }
+              - { name: roundTo, label: Redondear a múltiplos de, widget: number, value_type: float, min: 0, default: 1, required: false, hint: 'Para que no salgan precios como 56,83. Escribe 1 para dólares enteros (US$57), 5 para redondear de a 5 (US$55), o 0.01 si quieres los centavos exactos.' }
+
+      - name: settings
+        label: Ajustes
+        file: content/settings.json
+        icon: tune
+        fields:
+          - { name: whatsappMessage, label: 'Mensaje de WhatsApp (desde un producto)', widget: text, hint: 'Usa {product} donde deba ir el nombre y referencia del producto' }
+          - { name: whatsappGeneralMessage, label: 'Mensaje de WhatsApp (botón flotante)', widget: text, hint: 'Se usa cuando escriben desde el botón flotante de WhatsApp, sin haber elegido un producto todavía. No lleva {product}.' }
+          - { name: referenceMessage, label: Mensaje para copiar (Instagram/Facebook), widget: text, hint: 'Usa {product} donde deba ir el nombre y referencia del producto' }

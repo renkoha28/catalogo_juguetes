@@ -1,0 +1,19 @@
+{
+  "id": "PC-010",
+  "name": "BALAYAGE CENIZO",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa\n\n•  Corte: Recto \n\n•  Mechas Castañas \n\n•  Largo: 28\"\n\nRESISTENTE AL CALOR",
+  "price": 200000,
+  "images": [
+    "/images/products/pc-010-1.webp",
+    "/images/products/pc-010-2.webp",
+    "/images/products/pc-010-3.webp",
+    "/images/products/pc-010-4.webp"
+  ],
+  "videos": [
+    "/videos/products/Video 1.mp4"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}

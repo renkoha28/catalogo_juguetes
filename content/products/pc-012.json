@@ -1,0 +1,16 @@
+{
+  "id": "PC-012",
+  "name": "RUBIO",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa\n\n•  Corte: Recto \n\n•  Raíz Oscura con Balayage Dorado \n\n•  Largo: 28\"\n\nRESISTENTE AL CALOR",
+  "price": 0,
+  "images": [
+    "/images/products/pc-012-1.webp",
+    "/images/products/pc-012-2.webp",
+    "/images/products/pc-012-3.webp",
+    "/images/products/pc-012-4.webp"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}

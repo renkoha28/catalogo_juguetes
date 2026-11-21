@@ -1,0 +1,23 @@
+{
+  "title": "Nuestra historia",
+  "image": "/images/about.svg",
+  "story": [
+    "Párrafo de ejemplo sobre la fundadora. Aquí contaremos su historia: una mujer fuerte, alegre y llena de energía, que ama cantar, andar en bicicleta y vivir la vida sin miedo.",
+    "Párrafo de ejemplo sobre el origen del negocio. Tras vivir en carne propia la alopecia, decidió convertir su experiencia en una misión: ayudar a otras personas que pierden el cabello por estrés, accidentes, tratamientos oncológicos u otras enfermedades.",
+    "Párrafo de ejemplo sobre la promesa de la marca: acompañar a cada persona con calidez y sin juicios, para que vuelva a mirarse al espejo con confianza y esperanza."
+  ],
+  "values": [
+    {
+      "title": "Empatía",
+      "text": "Texto de ejemplo: entendemos por lo que estás pasando porque lo vivimos."
+    },
+    {
+      "title": "Alegría",
+      "text": "Texto de ejemplo: creemos que la vida se celebra, con o sin cabello."
+    },
+    {
+      "title": "Confianza",
+      "text": "Texto de ejemplo: queremos que salgas sintiéndote tú, más fuerte que nunca."
+    }
+  ]
+}

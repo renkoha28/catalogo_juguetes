@@ -1,0 +1,18 @@
+{
+  "name": "Diva Empoderada",
+  "slogan": "El poder de reinventarte cada día.",
+  "description": "Queremos que te mires al espejo y vuelvas a enamorarte de ti.",
+  "logo": "/images/logo.webp",
+  "navbarLogo": "/images/navbar-logo.webp",
+  "cover": "/images/5127459768061594761.webp",
+  "phone": "+58 414 0363322",
+  "email": "divaempoderada.shop@gmail.com",
+  "address": "Calle principal, sector los ceibos, Caneyes, Táchira.",
+  "locationUrl": "https://maps.app.goo.gl/ECNTeuUg91NdwUkj7",
+  "hours": [
+    {
+      "days": "lunes a lunes",
+      "open": "8:00 - 20:00"
+    }
+  ]
+}

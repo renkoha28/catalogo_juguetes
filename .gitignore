@@ -1,0 +1,6 @@
+node_modules
+dist
+public/images/derived
+.DS_Store
+*.local
+public/admin/catalog-index.json

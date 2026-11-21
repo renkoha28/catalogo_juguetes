@@ -1,0 +1,16 @@
+{
+  "id": "PS-004",
+  "name": "BALAYAGE CENIZO",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa\n•  Corte: capas \n•  Base Castaña \n•  Maya: Lace Front 13x4\n•  Largo: 32\"\n\nRESISTENTE AL CALOR",
+  "price": 300000,
+  "images": [
+    "/images/products/ps-004-1.webp",
+    "/images/products/ps-004-2.webp",
+    "/images/products/ps-004-3.webp",
+    "/images/products/ps-004-4.webp"
+  ],
+  "category": "semirrealistas",
+  "available": true,
+  "featured": false
+}

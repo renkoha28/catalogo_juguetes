@@ -1,0 +1,16 @@
+{
+  "id": "PC-004",
+  "name": "ROJA FUEGO - Clasica",
+  "shortDescription": "descripcion pendiente",
+  "description": "descripcion pendiente",
+  "price": 200000,
+  "images": [
+    "/images/products/pc-004-1.webp",
+    "/images/products/pc-004-2.webp",
+    "/images/products/pc-004-3.webp",
+    "/images/products/pc-004-4.webp"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}

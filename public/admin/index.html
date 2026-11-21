@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico?v=1784746566" sizes="48x48" />
+    <title>Administración del catálogo</title>
+  </head>
+  <body>
+    <!--
+      CMS_MANUAL_INIT + scripts clásicos (sin type="module"): el widget de
+      referencia tiene que registrarse ANTES de que el CMS valide la config,
+      porque productos usa `widget: reference`. reference-widget.js llama a
+      CMS.init() al final.
+    -->
+    <script>
+      window.CMS_MANUAL_INIT = true
+    </script>
+    <!-- Versión FIJA: sin número, unpkg sirve la última publicada (Sveltia saca
+         varias por semana) y el panel podía cambiar —o romperse— de un día
+         para otro. Para actualizar: cambiar el número, probar subir fotos y
+         guardar un producto en el teléfono, y revisar que el menú siga
+         mostrando "Destacados" y "Subir fotos". -->
+    <script src="https://unpkg.com/@sveltia/cms@0.270.1/dist/sveltia-cms.js"></script>
+    <script src="/admin/reference-widget.js"></script>
+    <!-- Agrega "Destacados" y "Subir fotos" al menú de colecciones (con
+         botones flotantes de respaldo si el marcado de Sveltia cambia). -->
+    <script src="/admin/menu-links.js"></script>
+  </body>
+</html>

@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico?v=1784746566" sizes="48x48" />
+    <title>Subir fotos — Administración del catálogo</title>
+    <!-- Mismos iconos que usa Sveltia, para que la página se sienta parte del panel. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&display=block"
+    />
+    <style>
+      /* Mismos colores que destacados.html (calcados del tema de Sveltia). */
+      :root {
+        --bg: #1d1f22;
+        --bg-side: #141619;
+        --bg-row: #222428;
+        --bg-selected: #2f3237;
+        --border: #33363b;
+        --text: #e3e5e8;
+        --muted: #9aa0a8;
+        --gold: #d4af37;
+        --error: #f28b82;
+        --ok: #81c995;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #fafafa;
+          --bg-side: #f2f2f2;
+          --bg-row: #e9e9eb;
+          --bg-selected: #e0e0e3;
+          --border: #dcdcdf;
+          --text: #24292f;
+          --muted: #6b7078;
+          --gold: #a5841e;
+          --error: #b3261e;
+          --ok: #1e7b34;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        display: flex;
+        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 14px;
+      }
+      .msym {
+        font-family: 'Material Symbols Outlined';
+        font-size: 20px;
+        line-height: 1;
+        flex: none;
+      }
+
+      .sidebar {
+        width: 240px;
+        flex: none;
+        background: var(--bg-side);
+        padding: 16px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .side-label { font-size: 12px; color: var(--muted); padding: 8px 12px; }
+      .side-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .side-item:hover { background: var(--bg-row); }
+      .side-item.current { background: var(--bg-selected); font-weight: 600; }
+      .side-item.current .msym { color: var(--gold); }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+      .topbar { flex: none; padding: 18px 24px 12px; border-bottom: 1px solid var(--border); }
+      .topbar h1 { margin: 0; font-size: 18px; font-weight: 700; }
+      .topbar .back-mobile { display: none; }
+      .topbar .hint { margin-top: 6px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+      .content { flex: 1; overflow-y: auto; padding-bottom: 24px; }
+
+      /* Botones grandes para elegir fotos: se usan con el pulgar. */
+      .pickers { display: flex; gap: 12px; padding: 16px 24px; flex-wrap: wrap; }
+      .picker {
+        flex: 1 1 220px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--bg-row);
+        color: var(--text);
+        cursor: pointer;
+        text-align: left;
+        font: inherit;
+      }
+      .picker:hover { background: var(--bg-selected); }
+      .picker .msym { font-size: 28px; color: var(--gold); }
+      .picker strong { display: block; font-size: 15px; }
+      .picker small { display: block; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+      .picker input { display: none; }
+
+      .target {
+        margin: 0 24px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--bg-row);
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .empty { margin: 32px 24px; color: var(--muted); text-align: center; line-height: 1.6; }
+
+      .banner {
+        margin: 8px 24px 0;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background: var(--bg-row);
+        line-height: 1.5;
+      }
+      .banner.ok { border-left: 4px solid var(--ok); }
+      .banner.warn { border-left: 4px solid var(--gold); }
+      .banner.error { border-left: 4px solid var(--error); }
+
+      /* Un bloque por producto con la lista FINAL de fotos, en orden. */
+      .group { margin: 16px 24px 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+      .group.unmatched { border-color: var(--gold); }
+      .group-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        background: var(--bg-row);
+      }
+      .group-head .info { flex: 1; min-width: 0; }
+      .group-head .name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .group-head .meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+      .group-head .meta.warn { color: var(--gold); font-weight: 600; }
+      .group-body { padding: 12px 14px; }
+      .group-body select { margin-bottom: 10px; }
+      .link-button {
+        border: none;
+        background: none;
+        color: var(--gold);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 0;
+      }
+
+      .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+      .photo { position: relative; border-radius: 10px; overflow: hidden; background: var(--bg-row); }
+      .photo.is-new { outline: 2px solid var(--gold); outline-offset: -2px; }
+      .photo .frame { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+      .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .photo .pos {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .photo .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        padding: 2px 7px;
+        border-radius: 999px;
+        background: var(--gold);
+        color: #191512;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .photo .state { padding: 4px 8px 0; font-size: 11px; color: var(--muted); min-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .photo .state.error { color: var(--error); white-space: normal; }
+      .photo .state.ok { color: var(--ok); }
+      .photo .tools { display: flex; justify-content: space-between; padding: 2px 4px 4px; }
+      .photo .tools button {
+        border: none;
+        background: none;
+        color: var(--text);
+        width: 36px;
+        height: 32px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .photo .tools button:hover { background: var(--bg-selected); }
+      .photo .tools button:disabled { opacity: 0.25; cursor: default; }
+
+      .savebar {
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 24px calc(12px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--border);
+        background: var(--bg-side);
+      }
+      .savebar .status { font-size: 13px; color: var(--muted); line-height: 1.4; }
+      .savebar button {
+        flex: none;
+        border: none;
+        border-radius: 999px;
+        padding: 10px 22px;
+        font-size: 14px;
+        font-weight: 700;
+        background: var(--gold);
+        color: #191512;
+        cursor: pointer;
+      }
+      .savebar button:disabled { opacity: 0.4; cursor: default; }
+
+      .screen { margin: 64px auto; max-width: 420px; text-align: center; padding: 0 20px; }
+      .screen h2 { font-size: 18px; }
+      .screen p { color: var(--muted); line-height: 1.6; }
+      .screen a.btn, .screen button.btn {
+        display: inline-block;
+        margin-top: 12px;
+        border: none;
+        border-radius: 999px;
+        padding: 10px 26px;
+        font-size: 14px;
+        font-weight: 700;
+        background: var(--gold);
+        color: #191512;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .screen input {
+        width: 100%;
+        margin-top: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--bg-row);
+        color: var(--text);
+        font-size: 13px;
+      }
+      .error-text { color: var(--error); font-weight: 600; }
+      .hidden { display: none !important; }
+
+      @media (max-width: 767px) {
+        .sidebar { display: none; }
+        .topbar .back-mobile {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          margin-bottom: 8px;
+          color: var(--gold);
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 13px;
+        }
+        .topbar, .pickers, .savebar { padding-left: 16px; padding-right: 16px; }
+        .target, .group, .banner { margin-left: 16px; margin-right: 16px; }
+        .empty { margin-left: 16px; margin-right: 16px; }
+        .photos { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="side-label">Collections</div>
+      <a class="side-item" href="/admin/#/collections/productos"><span class="msym">sell</span> Productos</a>
+      <a class="side-item" href="/admin/#/collections/categorias"><span class="msym">category</span> Categorías</a>
+      <a class="side-item" href="/admin/#/collections/general"><span class="msym">settings</span> Información general</a>
+      <a class="side-item" href="/admin/destacados.html"><span class="msym">star</span> Destacados</a>
+      <span class="side-item current" aria-current="page"><span class="msym">add_photo_alternate</span> Subir fotos</span>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <a class="back-mobile" href="/admin/">← Volver al panel</a>
+        <h1>Subir fotos</h1>
+        <div class="hint">
+          Si el nombre de la foto empieza con la referencia (ej. <b>PC-015-1.jpg</b>), se asigna
+          sola a ese producto. Las fotos se suben una por una: si se corta el internet, toca
+          <b>Reintentar</b> y sigue donde quedó.
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="screen-loading" class="screen"><p>Cargando productos…</p></div>
+
+        <div id="screen-login" class="screen hidden">
+          <h2>Falta iniciar sesión</h2>
+          <p>
+            Esta página usa tu misma sesión del panel. Entra primero al panel, inicia sesión y
+            vuelve aquí.
+          </p>
+          <a class="btn" href="/admin/">Ir al panel</a>
+          <p style="margin-top: 28px; font-size: 12px">
+            ¿Eres David probando en local? Pega un token de GitHub (fine-grained, con permiso de
+            contenido sobre el repo) y se usará solo en esta pestaña:
+          </p>
+          <input id="pat-input" type="password" placeholder="github_pat_…" autocomplete="off" />
+          <button class="btn" id="pat-button" type="button">Usar este token</button>
+        </div>
+
+        <div id="screen-error" class="screen hidden">
+          <h2>Algo salió mal</h2>
+          <p class="error-text" id="error-message"></p>
+          <button class="btn" type="button" onclick="location.reload()">Reintentar</button>
+        </div>
+
+        <div id="workspace" class="hidden">
+          <div class="pickers">
+            <!-- Sin `accept`: Android abre el explorador de archivos completo
+                 (todas las carpetas, búsqueda por nombre, nombres reales). -->
+            <label class="picker">
+              <span class="msym">folder_open</span>
+              <span>
+                <strong>Buscar en Archivos</strong>
+                <small>Todas las carpetas. Puedes buscar por nombre, ej. “PC-015”.</small>
+              </span>
+              <input id="pick-files" type="file" multiple />
+            </label>
+            <!-- image/*: la galería del teléfono (álbumes). Ojo: en Android
+                 entrega las fotos con un número en vez de su nombre real. -->
+            <label class="picker">
+              <span class="msym">photo_library</span>
+              <span>
+                <strong>Elegir de la Galería</strong>
+                <small>Álbumes del teléfono. Luego eliges a qué producto van.</small>
+              </span>
+              <input id="pick-gallery" type="file" accept="image/*" multiple />
+            </label>
+          </div>
+
+          <label class="target">
+            Producto para las fotos cuyo nombre no trae referencia (opcional):
+            <select id="default-target"></select>
+          </label>
+
+          <div id="banner" class="banner hidden" role="status"></div>
+          <div id="groups"></div>
+          <div id="empty" class="empty">
+            Elige las fotos con uno de los dos botones de arriba.<br />
+            Antes de subir verás cómo quedará cada producto.
+          </div>
+        </div>
+      </div>
+
+      <div class="savebar hidden" id="savebar">
+        <span class="status" id="save-status"></span>
+        <button id="save-button" type="button" disabled>Subir y guardar</button>
+      </div>
+    </main>
+
+    <script src="/admin/fotos.js"></script>
+  </body>
+</html>

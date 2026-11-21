@@ -1,0 +1,16 @@
+{
+  "id": "PC-005",
+  "name": "Peluca Ejemplo 4",
+  "shortDescription": "Descripción corta del producto de ejemplo.",
+  "description": "Descripción larga del producto. Aquí puedes hablar del material, largo, color, tipo de encaje, ajuste y cuidados recomendados.",
+  "images": [
+    "/images/products/pc-005-1.svg",
+    "/images/products/pc-005-2.svg",
+    "/images/products/pc-005-3.svg",
+    "/images/products/pc-005-4.svg"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "price": 420000,
+  "featured": false
+}

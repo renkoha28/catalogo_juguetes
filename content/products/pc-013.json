@@ -1,0 +1,16 @@
+{
+  "id": "PC-013",
+  "name": "CASTAÑO CON PLATINAS DORADAS",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa con ondas en las puntas\n\n•  Corte: en capas\n\n•  Capul:  ovalado\n\n•  Largo: 34\"\n\nRESISTENTE AL CALOR",
+  "price": 200000,
+  "images": [
+    "/images/products/pc-013-1.webp",
+    "/images/products/pc-013-2.webp",
+    "/images/products/pc-013-3.webp",
+    "/images/products/pc-013-4.webp"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}

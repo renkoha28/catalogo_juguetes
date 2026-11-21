@@ -1,0 +1,11 @@
+{
+  // Configuración de despliegue en Cloudflare (Workers + assets estáticos).
+  "name": "catalogo-juguetes",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist",
+    // Rutas del SPA (/catalogo/PC-001, /nosotros…) sirven index.html;
+    // los archivos reales (como /admin/) se sirven tal cual.
+    "not_found_handling": "single-page-application"
+  }
+}

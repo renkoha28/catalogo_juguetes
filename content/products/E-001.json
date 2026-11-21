@@ -1,0 +1,16 @@
+{
+  "id": "E-001",
+  "name": "Extensión Ejemplo",
+  "shortDescription": "Descripción corta de la extensión de ejemplo.",
+  "description": "Descripción larga de la extensión. Aquí puedes hablar del material, largo, color, método de aplicación y cuidados recomendados.",
+  "images": [
+    "/images/products/e-001-1.svg",
+    "/images/products/e-001-2.svg",
+    "/images/products/e-001-3.svg",
+    "/images/products/e-001-4.svg"
+  ],
+  "category": "extensiones",
+  "available": true,
+  "price": 180000,
+  "featured": true
+}

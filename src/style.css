@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  /* Marca: negro, rojo y blanco.
+     Los nombres de los tokens (gold-*, cream, blush, hope) son los mismos que
+     en catalogo_pelucas a propósito: así los componentes son idénticos en los
+     dos proyectos y los cambios se copian de uno a otro sin tocar clases.
+     Aquí "gold" es el ROJO de la marca:
+       - gold-400 / gold-300: texto e iconos rojos sobre fondo negro.
+       - gold-500: relleno rojo con texto negro encima (botón activo, hover):
+         lo bastante claro para que el negro se lea (contraste > 5:1).
+       - gold-600: texto rojo sobre blanco (contraste > 6:1). */
+  --color-ink: #0d0b0c;
+  --color-ink-soft: #2e2a2b;
+  --color-gold-50: #fff1f2;
+  --color-gold-100: #ffe1e4;
+  --color-gold-200: #ffc2c8;
+  --color-gold-300: #ff8a96;
+  --color-gold-400: #ff4d5e;
+  --color-gold-500: #ef3b4f;
+  --color-gold-600: #b3122a;
+  --color-gold-700: #840d1f;
+  --color-cream: #fbfafa;
+  --color-blush: #fdf0f1;
+  --color-hope: #f1e6e8;
+
+  /* Titulares en Bodoni Moda (serif de alto contraste, típica de marcas de
+     lencería y boutiques íntimas) y texto en Poppins, la misma de la tienda
+     de pelucas: marcas hermanas. Se cargan en index.html. */
+  --font-display: 'Bodoni Moda', Didot, Georgia, serif;
+  --font-body: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Titulares en serif con tracking amplio. */
+.font-display {
+  letter-spacing: 0.04em;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}

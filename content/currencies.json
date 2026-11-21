@@ -1,0 +1,16 @@
+{
+  "base": {
+    "code": "COP",
+    "symbol": "$",
+    "name": "Pesos colombianos"
+  },
+  "others": [
+    {
+      "code": "USD",
+      "symbol": "US$",
+      "name": "Dólares estadounidenses",
+      "rate": 3100,
+      "roundTo": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "PC-018",
+  "name": "CASTAÑO",
+  "shortDescription": "Fibra de Calidad Premium",
+  "description": "•  Textura: Lisa con ondas en las puntas\n\n•  Corte: capas \n\n•  Capul: en capas \n\n•  Mechas doradas en la parte baja\n\n•  Largo: 32\"\n\nRESISTENTE AL CALOR",
+  "price": 200000,
+  "images": [
+    "/images/products/pc-018-1.webp",
+    "/images/products/pc-018-2.webp",
+    "/images/products/pc-018-3.webp",
+    "/images/products/pc-018-4.webp"
+  ],
+  "category": "clasicas",
+  "available": true,
+  "featured": false
+}
