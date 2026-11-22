@@ -46,20 +46,21 @@ las palabras que verás:
 2. **Referencia** (lo primero del formulario): solo elige la **categoría** —
    no hay nada que escribir. El panel cuenta los productos de esa categoría y
    le asigna solo el siguiente número libre; la referencia la ves grande
-   debajo (por ejemplo `PC-020`). Si cambias de categoría, se reasigna sola.
+   debajo (por ejemplo `VB-020`). Si cambias de categoría, se reasigna sola.
 
-   - Peluca Clásica → `PC-` · Peluca Semi-realista → `PS-` · Peluca Realista → `PR-`
-   - Extensión → `E-` · Coleta → `C-`
+   - Vibradores → `VB-` · Dildos → `DL-` · Para parejas → `PA-` · Para él → `EL-`
+   - Juego anal → `AN-` · Lencería y disfraces → `LE-` · Lubricantes y cosmética → `LU-`
+   - BDSM y fetiche → `BD-`
 
    La categoría del producto sale de aquí: no hay que elegirla otra vez más
    abajo. Y en los productos ya guardados la referencia aparece con un
    candado: no se puede cambiar, para que los pedidos anotados con ella nunca
-   queden apuntando a otra peluca.
+   queden apuntando a otro producto.
 3. Llena nombre, descripción corta (aparece en la tarjeta) y descripción completa.
 4. **Precio**: solo el precio en pesos (COP). Los dólares (y cualquier otra
    moneda) se calculan solos con la tasa de cambio, no hay que escribirlos.
-5. **Fotos**: sube 4 fotos en este orden: **frente, espalda, lado izquierdo,
-   lado derecho**. La primera es la que se ve en el catálogo. Puedes subirlas
+5. **Fotos**: sube hasta 4 fotos, en el orden en que quieres que se vean.
+   La primera es la que se ve en el catálogo. Puedes subirlas
    directo desde tu teléfono: se optimizan solas, no te preocupes por el tamaño.
 
    💡 Si la subida falla o no encuentras una foto, guarda el producto con
@@ -81,13 +82,13 @@ las palabras que verás:
 En el menú del panel toca **Subir fotos**.
 
 1. **Nombra tus fotos con la referencia** antes de subirlas, en el orden en
-   que deben verse: `PC-015-1` (frente), `PC-015-2` (espalda), `PC-015-3`
-   (lado izquierdo), `PC-015-4` (lado derecho). Así cada foto se va sola a su
-   producto y en su lugar. También sirve `pc015 frente`, `PC-15_2`, etc.: lo
+   que deben verse: `VB-015-1`, `VB-015-2`, `VB-015-3`, `VB-015-4` (la 1 es la
+   del catálogo). Así cada foto se va sola a su producto y en su lugar.
+   También sirve `vb015 caja`, `VB-15_2`, etc.: lo
    importante es que el nombre **empiece** con la referencia.
 2. Toca **Buscar en Archivos**. Ahí ves **todas las carpetas** del teléfono
    (WhatsApp, Descargas, Cámara…). Usa la 🔍 lupa y escribe la referencia
-   (por ejemplo `PC-015`) para que aparezcan solo esas fotos; mantén
+   (por ejemplo `VB-015`) para que aparezcan solo esas fotos; mantén
    presionada una y marca las demás. Puedes elegir fotos de **varios
    productos a la vez**.
 3. La página te muestra cómo quedará cada producto, con las fotos numeradas
@@ -109,8 +110,8 @@ elige arriba el producto en "Producto para las fotos cuyo nombre no trae
 referencia" **antes** de elegir las fotos, o asígnalas después en el
 recuadro **Sin producto**.
 
-💡 Las fotos se guardan con el nombre del producto (`pc-015-1.webp`,
-`pc-015-2.webp`…). Si después cambias el orden, el nombre no cambia y no
+💡 Las fotos se guardan con el nombre del producto (`vb-015-1.webp`,
+`vb-015-2.webp`…). Si después cambias el orden, el nombre no cambia y no
 pasa nada: el orden que vale es el que ves en la página.
 
 ### 🚫 Marcar un producto como agotado
@@ -129,7 +130,7 @@ pasa nada: el orden que vale es el que ves en la página.
 
 Consejos para que el video siempre se vea bien:
 
-- Que sea **corto** (unos segundos mostrando la peluca) y pese **menos de
+- Que sea **corto** (unos segundos mostrando el producto) y pese **menos de
   25 MB** — el panel no acepta más.
 - Debe estar en formato **MP4**. Si lo grabaste con iPhone o pesa mucho, hay
   un truco fácil: **mándate el video a ti misma por WhatsApp y sube el video
@@ -172,7 +173,7 @@ se cambia la tasa una sola vez y todo el catálogo se actualiza.
    Si el dólar está a 4.100 pesos, escribe `4100`.
 3. **Save**.
 
-Ejemplo: una peluca de $420.000 con el dólar a 4.000 se muestra como
+Ejemplo: un producto de $420.000 con el dólar a 4.000 se muestra como
 `≈ US$105`. El símbolo `≈` significa "aproximadamente", porque el cobro real
 se hace en pesos.
 
@@ -206,11 +207,15 @@ guardados no se convierten solos.
 ### 🏪 Cambiar datos del negocio, redes sociales o tu historia
 
 1. Entra a **Información general**.
-2. Elige la sección: **Negocio** (logo, portada, horarios, dirección),
-   **Sobre la fundadora** (tu historia y valores), **Redes sociales y
+2. Elige la sección: **Negocio** (logo, portada, horarios, dirección y las
+   **Promesas**: las frases de la cinta roja y las tarjetas del inicio),
+   **Sobre nosotros** (la historia y los valores de la tienda), **Redes sociales y
    contacto**, **Monedas y tasas de cambio**, o **Ajustes** (mensajes de
-   WhatsApp).
+   WhatsApp y el aviso de **mayor de 18 años** al entrar).
 3. Cambia lo que necesites y toca **Save**.
+
+💡 Las **categorías** también tienen una **Frase corta** (sale en su tarjeta del
+inicio y arriba del catálogo) y una **Imagen** opcional de fondo.
 
 ## Consejos importantes
 

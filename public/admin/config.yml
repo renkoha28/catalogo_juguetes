@@ -53,7 +53,7 @@ collections:
       - { name: price, label: Precio en pesos colombianos (COP), widget: number, value_type: float, min: 0, default: 0, hint: 'Solo el precio en pesos. Los precios en dólares y demás monedas se calculan solos con la tasa de cambio que está en Información general → Monedas y tasas de cambio.' }
       - name: images
         label: Fotos
-        hint: 'Cuatro fotos en este orden: frente, espalda, lado izquierdo y lado derecho. La primera es la que aparece en el catálogo.'
+        hint: 'Hasta 4 fotos. La primera es la que aparece en el catálogo; las demás, en la galería del producto.'
         widget: list
         min: 1
         max: 4
@@ -128,9 +128,10 @@ collections:
     fields:
       - { name: id, label: Identificador, widget: string, hint: 'Sin espacios ni acentos, ej. "naturales". No lo cambies si ya hay productos usándolo.' }
       - { name: name, label: Nombre, widget: string }
-      - { name: prefix, label: Prefijo de la referencia, widget: string, pattern: ['^[A-Z]{1,3}$', 'Entre 1 y 3 letras mayúsculas, ej. PC'], hint: 'Las letras con las que empiezan las referencias de esta categoría (PC → PC-001). Debe ser distinto al de las demás categorías, y no conviene cambiarlo si ya hay productos usándolo.' }
-      - { name: image, label: Imagen, widget: image, required: false }
-      - { name: order, label: Orden, widget: number, value_type: int, default: 99, hint: 'Posición de la pestaña en el catálogo (menor = primero)' }
+      - { name: prefix, label: Prefijo de la referencia, widget: string, pattern: ['^[A-Z]{1,3}$', 'Entre 1 y 3 letras mayúsculas, ej. VB'], hint: 'Las letras con las que empiezan las referencias de esta categoría (VB → VB-001). Debe ser distinto al de las demás categorías, y no conviene cambiarlo si ya hay productos usándolo.' }
+      - { name: description, label: Frase corta, widget: string, required: false, hint: 'Aparece en la tarjeta de la categoría en el inicio y arriba del catálogo. Ejemplo: "Intensidad a tu ritmo".' }
+      - { name: image, label: Imagen, widget: image, required: false, hint: 'Opcional: foto de fondo de la tarjeta de la categoría en el inicio. Sin foto, la tarjeta muestra la inicial en dorado.' }
+      - { name: order, label: Orden, widget: number, value_type: int, default: 99, hint: 'Posición de la categoría en el inicio y en el catálogo (menor = primero)' }
 
   - name: general
     label: Información general
@@ -148,7 +149,17 @@ collections:
           - { name: description, label: Descripción, widget: text }
           - { name: logo, label: Logo, widget: image }
           - { name: navbarLogo, label: Logo horizontal (barra de navegación), widget: image, required: false, hint: 'Idealmente con fondo transparente. Si se deja vacío, se muestra el logo redondo con el nombre.' }
-          - { name: cover, label: Imagen de portada, widget: image }
+          - { name: cover, label: Imagen de portada, widget: image, required: false, hint: 'Opcional: foto de fondo de la portada del inicio (se oscurece para que el texto se lea). Sin foto, la portada muestra el logo con un brillo rojo.' }
+          - name: highlights
+            label: Promesas (cinta y tarjetas del inicio)
+            label_singular: Promesa
+            widget: list
+            collapsed: true
+            summary: '{{fields.title}}'
+            hint: 'Los títulos pasan en la cinta roja del inicio y aparecen bajo el botón de pedir de cada producto; título y texto se muestran en las tarjetas del inicio. Lo ideal son 3.'
+            fields:
+              - { name: title, label: Título, widget: string, hint: 'Corto. Ejemplo: Empaque discreto' }
+              - { name: text, label: Texto, widget: text }
           - { name: phone, label: Teléfono, widget: string, required: false, hint: 'Escríbelo como quieras que se lea, con espacios y con el código de país: "+58 414 0363322". Aparece en el pie de página y en el icono de llamar; el enlace se arma solo quitando los espacios.' }
           - { name: email, label: Correo, widget: string, required: false, hint: 'Aparece en el pie de página y en el icono de correo.' }
           - { name: address, label: Dirección, widget: string, required: false }
@@ -162,12 +173,12 @@ collections:
               - { name: open, label: Horario, widget: string, hint: 'Ejemplo: 10:00 - 19:00, o "Cerrado"' }
 
       - name: about
-        label: Sobre la fundadora
+        label: Sobre nosotros
         file: content/about.json
         icon: face
         fields:
           - { name: title, label: Título de la página, widget: string }
-          - { name: image, label: Fotografía, widget: image, required: false }
+          - { name: image, label: Fotografía, widget: image, required: false, hint: 'Opcional. Sin foto, la página muestra el logo.' }
           - name: story
             label: Historia (un párrafo por elemento)
             widget: list
@@ -232,3 +243,4 @@ collections:
           - { name: whatsappMessage, label: 'Mensaje de WhatsApp (desde un producto)', widget: text, hint: 'Usa {product} donde deba ir el nombre y referencia del producto' }
           - { name: whatsappGeneralMessage, label: 'Mensaje de WhatsApp (botón flotante)', widget: text, hint: 'Se usa cuando escriben desde el botón flotante de WhatsApp, sin haber elegido un producto todavía. No lleva {product}.' }
           - { name: referenceMessage, label: Mensaje para copiar (Instagram/Facebook), widget: text, hint: 'Usa {product} donde deba ir el nombre y referencia del producto' }
+          - { name: ageGate, label: 'Preguntar si es mayor de 18 al entrar', widget: boolean, default: true, hint: 'Muestra un aviso de mayoría de edad la primera vez que alguien entra al sitio (se recuerda en su navegador).' }

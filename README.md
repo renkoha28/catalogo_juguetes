@@ -4,7 +4,7 @@
 
 ### Overview
 
-Digital business catalog for **Diva Empoderada** (extensiones y pelucas), accessed through a QR code.
+Digital business catalog for **PK2 Diva — Sex Shop**, accessed through a QR code. Sister store of `catalogo_pelucas` (same owner): it shares the content model, admin panel and photo uploader, but has its **own layout and assets** (dark boudoir design, see *Design Philosophy*).
 
 When a customer scans the QR code, they reach a static website with:
 
@@ -89,23 +89,20 @@ All content is imported **at build time** from `content/` (Vite glob imports —
 
 # Products
 
-Three product types, organized as categories:
+Categories live in `content/categories/*.json` (editable in the admin; each has `prefix`, optional `description` and `image`, and `order`). Initial set:
 
-- **Pelucas** (wigs) in three lines: **Clásicas**, **Semi-realistas**, **Realistas**
-- **Extensiones**
-- **Coletas** (ponytails)
+| Prefix | Category |
+| ------ | -------- |
+| `VB-`  | Vibradores |
+| `DL-`  | Dildos |
+| `PA-`  | Para parejas |
+| `EL-`  | Para él |
+| `AN-`  | Juego anal |
+| `LE-`  | Lencería y disfraces |
+| `LU-`  | Lubricantes y cosmética |
+| `BD-`  | BDSM y fetiche |
 
-Product references follow the pattern `<type letters>-<3-digit code>`:
-
-| Prefix | Type |
-| ------ | ---- |
-| `PC-`  | Peluca Clásica |
-| `PS-`  | Peluca Semi-realista |
-| `PR-`  | Peluca Realista |
-| `E-`   | Extensión |
-| `C-`   | Coleta (ponytail) |
-
-Example: `PC-001`. Image files use the same code plus the view number: `PC-001-1.webp` … `PC-001-4.webp`.
+Product references follow the pattern `<prefix>-<3-digit code>`, e.g. `VB-001`. Photos uploaded through *Subir fotos* are named `vb-001-1.webp`, `vb-001-2.webp`…
 
 Each product (`content/products/<ref>.json`):
 
@@ -145,13 +142,13 @@ Adding a currency to `others` (from the admin, no code change) makes it appear a
 
 # Pages
 
-- **Inicio** — cover, slogan, description, social buttons, featured products
-- **Catálogo** — category tabs (no reload) + product grid (1 column on mobile, up to 4 on desktop)
-- **Producto** (`/catalogo/:id`) — 4-photo gallery, description, price, order buttons
-- **Nosotros** — founder story and values
+- **Inicio** — full-screen hero (glowing logo, slogan, CTAs; optional cover photo behind), animated ribbon with the `business.highlights` titles, category tiles with product counts, featured products ("Favoritos", carousel on mobile), promise cards, WhatsApp call-to-action
+- **Catálogo** — sticky, horizontally scrolling category chips (selection kept in `?categoria=`), product grid (2 columns on mobile, up to 4 on desktop), "Muy pronto" empty state
+- **Producto** (`/catalogo/:id`) — photo + video gallery (swipe on mobile), description, price, order box (WhatsApp, copy reference, Instagram/Facebook), related products
+- **Nosotros** — story and values (logo shown when there's no photo)
 - **Contacto** (`/redes`) — social/contact cards and opening hours
 
-Navigation: sticky nav bar with the horizontal logo; hamburger menu overlay on mobile.
+Navigation: sticky blurred bar with the round emblem + name; full-screen menu on mobile. **Age gate:** a "¿Eres mayor de 18?" screen on first visit, remembered in `localStorage`; toggled by `settings.ageGate` (Ajustes in the admin).
 
 ---
 
@@ -180,7 +177,7 @@ Lighthouse > 95 in Performance, Accessibility, SEO, and Best Practices.
 
 # Design Philosophy
 
-Brand: **black, red & white**. Colors live in `src/style.css` under the same token names as catalogo_pelucas (`gold-*` is the brand red here) so components stay identical between both projects. Type: **Bodoni Moda** (headings) + **Poppins** (body, shared with the sister store), loaded from Google Fonts in `index.html`. Minimal, fast, responsive, touch friendly, large buttons and images, few clicks. Mobile first; desktop excellent too.
+Brand: **black, wine red & gold**, sampled from the logo (glossy red devil heart, gold ring and lettering on black). The whole site is dark: boudoir mood with red glows and gold hairlines. Tokens in `src/style.css` (`noir-*`, `wine-*`, `gold-*`, `rose`, `mist`, `satin`) plus component classes `btn-gold`, `btn-outline`, `bg-ember`, `gold-rule`, `text-gold-sheen`. Product photos sit on a light `satin` panel since most come on white backgrounds. Type: **Playfair Display** italic (headings, echoing the logo's script) + **Poppins** (body, shared with the sister store). Minimal, fast, responsive, touch friendly, large buttons and images, few clicks. Mobile first; desktop excellent too.
 
 ---
 

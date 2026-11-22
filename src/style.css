@@ -1,48 +1,158 @@
 @import "tailwindcss";
 
+/* ============================================================
+   PK2 Diva — negro, vino y oro, sacados del logo (corazón rojo
+   brillante, aro y letras doradas sobre negro). Todo el sitio es
+   oscuro: ambiente de boudoir, con brillos rojos y filetes dorados.
+   ============================================================ */
 @theme {
-  /* Marca: negro, rojo y blanco.
-     Los nombres de los tokens (gold-*, cream, blush, hope) son los mismos que
-     en catalogo_pelucas a propósito: así los componentes son idénticos en los
-     dos proyectos y los cambios se copian de uno a otro sin tocar clases.
-     Aquí "gold" es el ROJO de la marca:
-       - gold-400 / gold-300: texto e iconos rojos sobre fondo negro.
-       - gold-500: relleno rojo con texto negro encima (botón activo, hover):
-         lo bastante claro para que el negro se lea (contraste > 5:1).
-       - gold-600: texto rojo sobre blanco (contraste > 6:1). */
-  --color-ink: #0d0b0c;
-  --color-ink-soft: #2e2a2b;
-  --color-gold-50: #fff1f2;
-  --color-gold-100: #ffe1e4;
-  --color-gold-200: #ffc2c8;
-  --color-gold-300: #ff8a96;
-  --color-gold-400: #ff4d5e;
-  --color-gold-500: #ef3b4f;
-  --color-gold-600: #b3122a;
-  --color-gold-700: #840d1f;
-  --color-cream: #fbfafa;
-  --color-blush: #fdf0f1;
-  --color-hope: #f1e6e8;
+  /* Negros cálidos (un toque de vino para que no se vean grises) */
+  --color-noir: #0b0708;
+  --color-noir-800: #120b0d;
+  --color-noir-700: #1b1114;
+  --color-noir-600: #2b1a1f;
 
-  /* Titulares en Bodoni Moda (serif de alto contraste, típica de marcas de
-     lencería y boutiques íntimas) y texto en Poppins, la misma de la tienda
-     de pelucas: marcas hermanas. Se cargan en index.html. */
-  --font-display: 'Bodoni Moda', Didot, Georgia, serif;
+  /* Rojo vino del corazón del logo */
+  --color-wine-900: #3a0609;
+  --color-wine-800: #5a0b11;
+  --color-wine-700: #7a1218;
+  --color-wine-600: #9c1b22;
+  --color-wine-500: #c0262d;
+  --color-wine-400: #e04850;
+
+  /* Oro del aro y las letras */
+  --color-gold-200: #f7e6b0;
+  --color-gold-300: #f0d27e;
+  --color-gold-400: #e3b85e;
+  --color-gold-500: #cc9a40;
+  --color-gold-600: #a97b2f;
+
+  /* Textos sobre negro y panel claro para las fotos de producto
+     (casi todas vienen con fondo blanco). */
+  --color-rose: #f3e8e4;
+  --color-mist: #b8a6a2;
+  --color-satin: #f6efec;
+
+  /* Titulares en Playfair Display (cursiva, como el "PK2 Diva" del
+     logo); texto en Poppins, la misma de la tienda hermana. */
+  --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-glow: glow 5s ease-in-out infinite;
 }
 
-/* Titulares en serif con tracking amplio. */
-.font-display {
-  letter-spacing: 0.04em;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 18px rgb(192 38 45 / 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 34px rgb(224 72 80 / 0.7));
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--color-noir);
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-ink);
+  background-color: var(--color-noir);
+  color: var(--color-rose);
   -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  /* Texto dorado con brillo, como las letras del logo. */
+  .text-gold-sheen {
+    background: linear-gradient(180deg, #f7e6b0 0%, #e3b85e 45%, #b88634 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Botón principal: oro. */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.85rem 1.75rem;
+    font-weight: 600;
+    color: var(--color-noir);
+    background: linear-gradient(180deg, #f3d989 0%, #e3b85e 50%, #c4913a 100%);
+    box-shadow:
+      0 0 0 1px rgb(247 230 176 / 0.35) inset,
+      0 8px 24px -8px rgb(227 184 94 / 0.55);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .btn-gold:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px rgb(247 230 176 / 0.5) inset,
+      0 12px 30px -8px rgb(227 184 94 / 0.75);
+  }
+
+  /* Botón secundario: contorno dorado. */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.8rem 1.6rem;
+    font-weight: 600;
+    color: var(--color-gold-300);
+    border: 1px solid rgb(227 184 94 / 0.55);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .btn-outline:hover {
+    background-color: rgb(227 184 94 / 0.12);
+    color: var(--color-gold-200);
+  }
+
+  /* Resplandor rojo de fondo (secciones "calientes"). */
+  .bg-ember {
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgb(192 38 45 / 0.35), transparent 70%),
+      radial-gradient(40% 40% at 85% 100%, rgb(122 18 24 / 0.35), transparent 70%),
+      var(--color-noir);
+  }
+
+  /* Filete dorado que se desvanece a los lados. */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(227 184 94 / 0.6), transparent);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-glow {
+    animation: none;
+  }
 }

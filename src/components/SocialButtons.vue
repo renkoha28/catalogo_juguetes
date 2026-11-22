@@ -5,21 +5,19 @@ const { socialChannels: buttons } = useCatalog()
 </script>
 
 <template>
-  <nav v-if="buttons.length" class="mx-auto max-w-3xl px-4 py-8" aria-label="Redes sociales y contacto">
-    <ul class="mx-auto grid w-fit grid-cols-4 justify-items-center gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-3">
-      <li v-for="btn in buttons" :key="btn.key">
-        <a
-          :href="btn.href"
-          target="_blank"
-          rel="noopener noreferrer"
-          :aria-label="btn.label"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-gold-400 shadow-md transition-transform hover:scale-110 hover:bg-gold-500 hover:text-ink sm:h-14 sm:w-14"
-        >
-          <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
-            <path :d="btn.icon" />
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <ul v-if="buttons.length" class="flex flex-wrap justify-center gap-3" aria-label="Redes sociales y contacto">
+    <li v-for="btn in buttons" :key="btn.key">
+      <a
+        :href="btn.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="btn.label"
+        class="flex h-12 w-12 items-center justify-center rounded-full text-gold-300 ring-1 ring-gold-500/40 transition duration-200 hover:scale-110 hover:bg-wine-700 hover:text-gold-200 hover:ring-wine-500"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+          <path :d="btn.icon" />
+        </svg>
+      </a>
+    </li>
+  </ul>
 </template>

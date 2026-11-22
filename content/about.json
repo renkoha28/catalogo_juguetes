@@ -1,23 +1,23 @@
 {
-  "title": "Nuestra historia",
-  "image": "/images/about.svg",
+  "title": "Sobre PK2 Diva",
+  "image": "",
   "story": [
-    "Párrafo de ejemplo sobre la fundadora. Aquí contaremos su historia: una mujer fuerte, alegre y llena de energía, que ama cantar, andar en bicicleta y vivir la vida sin miedo.",
-    "Párrafo de ejemplo sobre el origen del negocio. Tras vivir en carne propia la alopecia, decidió convertir su experiencia en una misión: ayudar a otras personas que pierden el cabello por estrés, accidentes, tratamientos oncológicos u otras enfermedades.",
-    "Párrafo de ejemplo sobre la promesa de la marca: acompañar a cada persona con calidez y sin juicios, para que vuelva a mirarse al espejo con confianza y esperanza."
+    "Texto de ejemplo: PK2 Diva nació de una idea sencilla: el placer es parte del bienestar, y nadie debería sentir vergüenza de buscarlo.",
+    "Texto de ejemplo: aquí encuentras juguetes, lencería y cosmética íntima elegidos con cuidado, para disfrutar en solitario o en pareja.",
+    "Texto de ejemplo: te atendemos con respeto, confianza y total discreción, desde la primera pregunta hasta que tu pedido llega a tus manos."
   ],
   "values": [
     {
-      "title": "Empatía",
-      "text": "Texto de ejemplo: entendemos por lo que estás pasando porque lo vivimos."
+      "title": "Discreción",
+      "text": "Texto de ejemplo: tu privacidad es lo primero, en cada mensaje y en cada envío."
     },
     {
-      "title": "Alegría",
-      "text": "Texto de ejemplo: creemos que la vida se celebra, con o sin cabello."
+      "title": "Placer sin tabúes",
+      "text": "Texto de ejemplo: hablamos de deseo con naturalidad, sin juicios."
     },
     {
       "title": "Confianza",
-      "text": "Texto de ejemplo: queremos que salgas sintiéndote tú, más fuerte que nunca."
+      "text": "Texto de ejemplo: productos seguros y una asesoría honesta para que elijas lo mejor para ti."
     }
   ]
 }

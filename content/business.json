@@ -1,10 +1,24 @@
 {
-  "name": "Diva Empoderada",
-  "slogan": "El poder de reinventarte cada día.",
-  "description": "Queremos que te mires al espejo y vuelvas a enamorarte de ti.",
+  "name": "PK2 Diva",
+  "slogan": "Atrévete a desear.",
+  "description": "Juguetes íntimos, lencería y accesorios para vivir tu placer sin tabúes. Te asesoramos con total discreción.",
   "logo": "/images/logo.webp",
-  "navbarLogo": "/images/navbar-logo.webp",
-  "cover": "/images/5127459768061594761.webp",
+  "navbarLogo": "",
+  "cover": "",
+  "highlights": [
+    {
+      "title": "Empaque discreto",
+      "text": "Tu pedido va en un paquete neutro, sin logos ni pistas de lo que hay dentro."
+    },
+    {
+      "title": "Compra confidencial",
+      "text": "Lo que hablamos se queda entre nosotros. Sin juicios, sin preguntas incómodas."
+    },
+    {
+      "title": "Asesoría sin tabúes",
+      "text": "¿No sabes por dónde empezar? Escríbenos y te ayudamos a elegir lo ideal para ti."
+    }
+  ],
   "phone": "+58 414 0363322",
   "email": "divaempoderada.shop@gmail.com",
   "address": "Calle principal, sector los ceibos, Caneyes, Táchira.",

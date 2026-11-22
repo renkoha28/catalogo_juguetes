@@ -4,6 +4,7 @@ import { useCatalog } from './composables/useCatalog'
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'
 import FloatingWhatsApp from './components/FloatingWhatsApp.vue'
+import AgeGate from './components/AgeGate.vue'
 
 const { business } = useCatalog()
 
@@ -14,12 +15,13 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-cream">
+  <div class="flex min-h-screen flex-col bg-noir">
     <NavBar />
     <div class="flex-1">
       <router-view />
     </div>
     <Footer />
     <FloatingWhatsApp />
+    <AgeGate />
   </div>
 </template>
